@@ -1,0 +1,13 @@
+--Excel Formulas used for this particular project--
+
+--Creating column using IF formula grouping of employees by age
+ =IF(H3<=30;"Adolescent";IF(AND(H3>30;H3<=50);"Middle Age"; IF(H3>50;"Old";"Nope")))
+
+--Creating column with today's date using TODAY function
+=TODAY()
+
+--Creating column with the number of years worked in the company using DATEDIF function
+=DATEDIF(J4;K4;"Y")
+
+--Creating column with grouped years of work in the company using IF function
+=IF(L10<=5;"0-5 Years";IF(AND(L10>5;L10<=10);"6-10 Years";IF(AND(L10>10;L10<=15);"11-15 Years";IF(AND(L10>15;L10<=20);"16-20 Years";IF(AND(L10>20;L10<=25);"21-25 Years";IF(L10>25;"25+ Years";"Nope"))))))
