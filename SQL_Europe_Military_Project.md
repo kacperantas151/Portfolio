@@ -1,4 +1,5 @@
 --Table joints--
+
 select Country, act_military, reserve_military, paramilitary, Total, capita_total, capitaact, region
 from list_of_countries inner join continents2
 on list_of_countries.Country = continents2.ď»żname
