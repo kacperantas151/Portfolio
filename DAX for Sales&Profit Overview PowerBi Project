@@ -1,0 +1,35 @@
+--DAX code used for this particular project--
+
+--CALCULATED TABLES AND COLUMNS--
+
+--Creating calculated CalendarTable using ADDCOLUMNS and TIME functions
+ CalendarTable = 
+ ADDCOLUMNS(
+ CALENDAR(DATE(2020, 1, 1), DATE(2023, 12, 31)),
+ "Year", YEAR([Date]),
+ "Month Number", MONTH([Date]),
+ "Month", FORMAT([Date], "MMMM"),
+ "Quarter", QUARTER([Date]),
+ "Weekday", WEEKDAY([Date]),
+ "Day", DAY([Date])
+ )
+
+ --Creating calculated column using simply division operation to obtain Yearly Profit Margin
+ Yearly Profit Margin = ('Sales in USD'[Gross Revenue])/'Sales in USD'[Net Revenue]
+
+--MEASURES--
+
+--Creating measure of the Median Sales using MEDIAN function
+Median Sales = MEDIAN('Sales in USD'[Gross Revenue USD])
+
+--Creating measure of the Quarterly Profit using CALCULATE, SUM and DATESQTD functions
+Quarterly Profit = CALCULATE(SUM('Sales in USD'[Yearly Profit Margin]), DATESQTD(CalendarTable[Date]))
+
+--Creating measure of the Top Sales using MAX function
+Top Sale = MAX('Sales in USD'[Gross Revenue USD])
+
+--Creating measure of the Total Sale Revenue using SUM function
+Total Net Revenue = SUM('Sales in USD'[Net Revenue USD])
+
+--Creating measure of the Total Year To Date Profit using TOTALYTD and SUM functions
+YTD Profit = TOTALYTD(SUM('Sales in USD'[Yearly Profit Margin]),CalendarTable[Date].[Date])
