@@ -1,0 +1,27 @@
+--DAX code used for this particular project--
+
+--CALCULATED COLUMNS--
+
+--Creating calculated column using an IF formula that groups Countries into European Union countries and Others
+  UE/NOUE = IF('Country List'[Country]="Belarus","Belarus", IF('Country List'[Country]= "Bosnia and Herzegovina", "Other Countries", IF('Country List'[Country]="Albania", "Other Countries", IF('Country List'[Country]="Montenegro", "Other Countries", 
+  IF('Country List'[Country]="Moldova", "Other Countries", IF('Country List'[Country]="Norway", "Other Countries", IF('Country List'[Country]="Russia", "Russia", IF('Country List'[Country]="Serbia", "Other Countries", IF('Country List'[Country]="Ukraine", 
+  "Ukraine", IF('Country List'[Country]="United Kingdom", "United Kingdom", "European Union"))))))))))
+
+  --Creating calculated column using simple addition operations to obtain grouped military resources
+   Aircraft = 'global firepower 2022 wide'[Aircraft Carriers] +'global firepower 2022 wide'[Attack Helicopters]+ 'global firepower 2022 wide'[Fighters/Interceptors]+ 'global firepower 2022 wide'[Helicopter Carriers]+ 'global firepower 2022 wide'[Helicopters]
+  
+   Land = 'global firepower 2022 wide'[Armored Vehicles]+'global firepower 2022 wide'[Rocket Projectors]+'global firepower 2022 wide'[Self-Propelled Artillery]+'global firepower 2022 wide'[Tanks]+'global firepower 2022 wide'[Towed Artillery]
+  
+   Marine = 'global firepower 2022 wide'[Corvettes]+'global firepower 2022 wide'[Destroyers]+'global firepower 2022 wide'[Frigates]+'global firepower 2022 wide'[Mine Warfare]+'global firepower 2022 wide'[Navy Ships]+'global firepower 2022 wide'[Patrol Vessels]
+  +'global firepower 2022 wide'[Submarines]+'global firepower 2022 wide'[Tanker Fleet]
+
+  --MEASURES--
+  
+  --Creating measure of the max, min and average military % using MAX, MIN, AVERAGE function
+    Max Military% = MAX(Zapytanie1[Military%])
+    
+    Min Military% = MIN(Zapytanie1[Military%])
+
+    AVGMilitary% = AVERAGE(Zapytanie1[Military%])
+
+    
