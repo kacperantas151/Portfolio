@@ -1,0 +1,41 @@
+--DAX code used for this particular project--
+
+--CALCULATED COLUMNS--
+
+--Creating calculated column using an IF formula that groups hill sizes into normal, large and flying hills based on hill size column
+Hill Type = IF(all_hills[Hill size]<110, "Normal Hill", IF(all_hills[Hill size]<150, "Large Hill", "Flying Hill"))
+
+--Creating month numbers based on date column using MONTH function
+Month Number = MONTH(all_hills[Date].[Date])
+
+--Creating seasons in which the competition was held based on the month number column
+Season = IF(all_hills[Month Number]>10, "Winter", IF(all_hills[Month Number]<4, "Winter", "Summer"))
+
+--Creating country abbreviation using the RIGHT function
+Short = RIGHT(all_hills[Place],5)
+
+Combining athlete's names into one column using the CONCATENATE function
+Name = all_names[Name.4]&" "&all_names[Name.3]&" "&all_names[Name.2]&" "&all_names[Name.1]
+
+--MEASURES--
+
+--Creating measure of the longest jump based on a column of individual jump distances
+Longest Jump = MAX(all_resultss[Distance])
+
+--Creating measure of the max speed based on a column of speed results
+Max Speed = MAX(all_resultss[Speed])
+
+--Creating measure of the max wind based on the wind column
+Max_Wind_Comp = MAX(all_resultss[Wind Comp])
+
+--Creating measure of the min wind based on the wind column
+Min_Wind_Comp = MIN(all_resultss[Wind Comp])
+
+--Creating measure of the total jumps based on total amount of rows in all_resultss table using COUNTROWS function
+Total Jumps = COUNTROWS(all_resultss)
+
+--Creating measure of the total competitions amount based on distinct amount of rows in all_resultss table using DISTINCTCOUNT function
+Total_Competitions = DISTINCTCOUNT(all_resultss[Id])
+
+--Creating measure of the average temperature during competitions using AVERAGE function
+Average Temperature = AVERAGE(all_stats[Air])
