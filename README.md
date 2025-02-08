@@ -16,5 +16,4 @@ The measures and queries are organized into folders based on the specific projec
 
 
 #### Contact
-If you have any questions, feel free to reach out to me at: kacper.antas151@gmail.com 
-or LinkedIn: https://www.linkedin.com/in/kacper-antas-545133226/
+Feel free to reach out to me at: kacper.antas151@gmail.com or LinkedIn: https://www.linkedin.com/in/kacper-antas-545133226/
