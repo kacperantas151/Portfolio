@@ -1,5 +1,5 @@
 --DAX code used for this particular project--
- --MEASURES--
+ --MEASURES/CALCULATED COLUMNS/CALCULATED TABLES--
 
 --Measure returning average hours of sleep
 Avg_Sleep = 
@@ -22,3 +22,68 @@ IF(
     COUNTROWS(SelectedCountries) > 0,
     MINX(SelectedCountries, Country[Country]),   // Return the alphabetically first country
     BLANK()                                        // No selected countries → blank
+  )
+
+--Measure returning average hours of sleep for selected country in measure "First Alphabetical Country"
+Avg_Sleep_Smart = 
+VAR SelectedCountry = [First Alphabetical Country] 
+RETURN
+CALCULATE(
+    SUM(clean_demog_data[Avg Sleep]), 
+    FILTER(ALL(Country), Country[Country] = SelectedCountry))
+
+--Measure returning average hours of work for selected country in measure "First Alphabetical Country"
+Avg_Work_Smart = 
+VAR SelectedCountry = [First Alphabetical Country]
+RETURN
+CALCULATE(SUM('Sleeping Hours'[Working Hours]), FILTER(Country, Country[Country]=SelectedCountry))
+
+--Measure returning sum of coronary heart diseases for males - used for sorting column chart
+Males_bra_hear_sort = CALCULATE(SUM('heartbrain mal'[Value]), 'heartbrain mal'[Disease]="Coronary heart disease")
+
+--Measure returning sum of coronary heart diseases for females - used for sorting column chart
+Females_bra_hear_sort = CALCULATE(SUM('hreatbrain fem'[Value]), 'hreatbrain fem'[Disease]="Coronary heart disease")
+
+--Measure returning sum of coronary heart diseases for noth sexes - used for sorting column chart
+Total_bra_hear_sort = CALCULATE(SUM('heartbrain tot'[Percentage]), 'heartbrain tot'[Disease]="Coronary heart disease")
+
+--Measure returning sum of total overweight
+SumOfDiv = SUM('Total Overweight'[Division])
+
+--Measure that ranks countries based on the percentage of overweight in a given country
+Rank_Measure = RANKX(ALL('Total Overweight'[Country]), [SumOfDiv], ,DESC, Skip)
+
+--Calculated table returning numbers from 1-10
+TopValues = GENERATESERIES(1, 10, 1)
+
+--Measure retrieves the value of the column 'TopValues'[TopValues]
+TopValues Value = SELECTEDVALUE('TopValues'[TopValues], 1)
+
+--Measure returning the percentage of overweight in selected top countries
+TopNbyCountry = IF([Rank_Measure] <=TopValues[TopValues Value], [SumOfDiv], BLANK())
+
+--Measure returning work-sleep ratio dividing average work hours by average sleep hours
+WSR = DIVIDE([Avg_Work], [Avg_Sleep])
+
+--Measure returning average work-sleep ratio for all countries
+WSR_ALL = CALCULATE(DIVIDE(SUMX(clean_demog_data, DIVIDE(clean_demog_data[Working Hours], clean_demog_data[Avg Sleep],0)), COUNTROWS(Country)), ALL())
+
+--Measure calculating work-sleep ratio for country selected in measure "First Alphabetical Country"
+WSR_smart = 
+VAR SelectedCountry = [First Alphabetical Country]
+RETURN
+CALCULATE(DIVIDE([Avg_Work], [Avg_Sleep]), FILTER(Country, Country[Country]=SelectedCountry))
+
+--Measure calculating absolute percentage below or above average work-sleep ratio for selected country
+WSR3_smart = ABS(DIVIDE([WSR_smart],[WSR_ALL],BLANK())-1)
+
+--Measure calculating percentage below or above average work-sleep ratio for selected country
+WSR4 = DIVIDE([WSR],[WSR_ALL],BLANK())-1
+
+--Measure retrieving word "above" if percentage for particular country is above average work-sleep ratio or retrieving word "below" when percentage is negative.
+WSR_if = SWITCH(TRUE(),
+[WSR4]>0, "above",
+[WSR4]<0, "below",
+BLANK())
+
+
