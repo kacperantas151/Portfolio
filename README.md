@@ -2,7 +2,7 @@
 
 ## DAX, SQL and Excel Formulas for Analytical Projects
 
-This repository contains a collection of DAX, SQL and Excel code used in various analytical projects in Power BI. The purpose of this repository is to provide insight into the structure of the DAX, SQL and Excel code used across different projects. 
+This repository contains a collection of DAX, SQL and Excel code used in various analytical projects. The purpose of this repository is to provide insight into the structure of the DAX, SQL and Excel code used across different projects. 
 The measures and queries are organized into folders based on the specific project they were created for. This repository aims to facilitate the reuse of these code snippets and provide a reference for building DAX, SQL and Excel formulas.
 
 ### Repository Structure
