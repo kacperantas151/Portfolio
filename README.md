@@ -13,7 +13,5 @@ The measures and queries are organized into folders based on the specific projec
 - **SQL_Europe_Military_Project.md** - SQL code for Europe Military Project
 
 
-
-
-Contact
+### Contact
 If you have any questions, feel free to reach out to me at: kacper.antas151@gmail.com or LinkedIn: https://www.linkedin.com/in/kacper-antas-545133226/
