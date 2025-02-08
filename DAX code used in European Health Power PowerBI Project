@@ -1,0 +1,24 @@
+--DAX code used for this particular project--
+ --MEASURES--
+
+--Measure returning average hours of sleep
+Avg_Sleep = 
+VAR AvgSleepHours = SUM(clean_demog_data[Avg Sleep])
+RETURN
+AvgSleepHours
+
+--Measure returning average hours of work
+Avg_Work = 
+VAR AvgWorkHours = AVERAGEX('Sleeping Hours', 'Sleeping Hours'[Working Hours])
+RETURN
+AvgWorkHours
+
+--Measure returning the first alphabetical country from the set of countries selected in the filter context
+
+First Alphabetical Country = 
+VAR SelectedCountries = VALUES(Country[Country]) // Retrieve selected countries (including filters)
+RETURN
+IF(
+    COUNTROWS(SelectedCountries) > 0,
+    MINX(SelectedCountries, Country[Country]),   // Return the alphabetically first country
+    BLANK()                                        // No selected countries → blank
