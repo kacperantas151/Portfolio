@@ -86,4 +86,13 @@ WSR_if = SWITCH(TRUE(),
 [WSR4]<0, "below",
 BLANK())
 
+--Measure calculating sum of values for males whose activity was equal 0 min 
+Zero minutes males = CALCULATE(SUM('Act Males'[Value]),'Act Males'[Duration]="Zero minutes")
+
+--Measure calculating sum of values for females whose activity was equal 0 min 
+Zero minutes females = CALCULATE(SUM('Act Females'[Values]),'Act Females'[Duration]="Zero minutes")
+
+--Measure calculating sum of values for both sexes whose activity was equal 0 min 
+Zero minutes both = CALCULATE(SUM('Act Both'[Values]),'Act Both'[Duration]="Zero minutes")
+
 
